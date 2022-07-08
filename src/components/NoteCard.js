@@ -11,7 +11,9 @@ function NoteCard({id, title, body, createdAt, archived, showFormattedDate}) {
                 <span>{body}</span>
             </div>
             <div className="last-row">
-                <button className="buttonItem move">Arsipkan</button>
+                {
+                    (archived === true) ? <button className="buttonItem move">Pulihkan</button> : <button className="buttonItem move">Arsipkan</button>
+                }
                 <button className="buttonItem delete">Hapus</button>
             </div>
         </div>

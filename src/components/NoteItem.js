@@ -3,6 +3,7 @@ import NoteSearch from './NoteSearch';
 import NoteCard from './NoteCard';
 
 function NoteItem({notes, showFormattedDate}) {
+  const filteredNotes = notes.filter((note) => note.archived === false);
   return (
     <div className="left-side">
         <div className="left-heading">
@@ -10,7 +11,7 @@ function NoteItem({notes, showFormattedDate}) {
             <NoteSearch />
             <div className="item-container">
               {
-                notes.map((note) => (
+                filteredNotes.map((note) => (
                   <NoteCard 
                     key={note.id} 
                     id={note.id}
