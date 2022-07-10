@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NoteItem from './NoteItem';
 import NoteForm from './NoteForm';
 import NoteArcive from './NoteArcive';
-import { getInitialData, showFormattedDate } from '../utils/index';
+import { getInitialData } from '../utils/index';
 
 class NoteApp extends Component {
     constructor(props) {
@@ -12,23 +12,39 @@ class NoteApp extends Component {
             notes: getInitialData(),
         }
 
+        this.onDeleteHandler = this.onDeleteHandler.bind(this);
         this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     }
 
     onArcivedHandler(id) {
         const note = this.state.notes.filter(note => note.id === id);
         const notes = this.state.notes.filter(note => note.id !== id);
-        const updatedNote = {
-            id: note.id,
-            title: note.title,
-            body: note.body,
-            createdAt: note.createdAt,
-            archived: true,
-        };
-        notes.push(note);
+        let newArchive;
+        if (note.archived === true) {
+            newArchive = false;
+        } else {
+            newArchive = true;
+        }
+
         this.setState(() => {
-            
+            return {
+              notes: [
+                ...notes,
+                {
+                    id: note.id,
+                    title: note.title,
+                    body: note.body,
+                    createdAt: note.createdAt,
+                    archived: newArchive,
+                },
+              ]
+            }
         });
+    }
+
+    onDeleteHandler(id) {
+        const notes = this.state.notes.filter(note => note.id !== id);
+        this.setState({ notes });
     }
 
     onAddNoteHandler({title, body, createdAt, archived}) {
@@ -52,10 +68,10 @@ class NoteApp extends Component {
         return (
             <div className="container">
                 <div className="card">
-                    <NoteItem notes={this.state.notes} showFormattedDate={showFormattedDate} />
+                    <NoteItem notes={this.state.notes} onDelete={this.onDeleteHandler} />
                     <NoteForm addNote={this.onAddNoteHandler} />
                 </div>
-                <NoteArcive notes={this.state.notes} showFormattedDate={showFormattedDate} />
+                <NoteArcive notes={this.state.notes} onDelete={this.onDeleteHandler} />
             </div>
         );
     }

@@ -1,7 +1,8 @@
 import React from 'react';
 import NoteCard from './NoteCard';
+import { showFormattedDate } from '../utils/index';
 
-function NoteArcive({notes, showFormattedDate}) {
+function NoteArcive({notes, onDelete}) {
   const filteredNotes = notes.filter((note) => note.archived === true);
   return (
     <div className="arcived">
@@ -13,7 +14,8 @@ function NoteArcive({notes, showFormattedDate}) {
               <NoteCard 
                 key={note.id} 
                 id={note.id}
-                showFormattedDate={showFormattedDate}
+                showFormattedDate={showFormattedDate(note.createdAt)}
+                onDelete={onDelete}
                 {...note} />
             ))
           }

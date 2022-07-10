@@ -1,8 +1,9 @@
 import React from 'react';
 import NoteSearch from './NoteSearch';
 import NoteCard from './NoteCard';
+import { showFormattedDate } from '../utils/index';
 
-function NoteItem({notes, showFormattedDate}) {
+function NoteItem({notes, onDelete}) {
   const filteredNotes = notes.filter((note) => note.archived === false);
   return (
     <div className="left-side">
@@ -15,7 +16,8 @@ function NoteItem({notes, showFormattedDate}) {
                   <NoteCard 
                     key={note.id} 
                     id={note.id}
-                    showFormattedDate={showFormattedDate}
+                    showFormattedDate={showFormattedDate(note.createdAt)}
+                    onDelete={onDelete}
                     {...note} />
                 ))
               }

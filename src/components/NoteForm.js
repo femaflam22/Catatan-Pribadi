@@ -1,5 +1,4 @@
 import React from 'react';
-
  
 class NoteForm extends React.Component {
     constructor(props) {
