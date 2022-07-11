@@ -1,6 +1,6 @@
 import React from 'react'
 
-function NoteCard({id, title, body, archived, showFormattedDate, onDelete}) {
+function NoteCard({id, title, body, archived, showFormattedDate, onDelete, onArchive}) {
   return (
         <div className="item"> 
             <div className="text">
@@ -12,7 +12,7 @@ function NoteCard({id, title, body, archived, showFormattedDate, onDelete}) {
             </div>
             <div className="last-row">
                 {
-                    (archived === true) ? <button className="buttonItem move">Pulihkan</button> : <button className="buttonItem move">Arsipkan</button>
+                    (archived === true) ? <button className="buttonItem move" onClick={() => onArchive(id)}>Pulihkan</button> : <button className="buttonItem move" onClick={() => onArchive(id)}>Arsipkan</button>
                 }
                 <button className="buttonItem delete"  onClick={() => onDelete(id)}>Hapus</button>
             </div>
